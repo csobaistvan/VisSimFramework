@@ -98,11 +98,11 @@ The framework requires the following external software:
 
 ### Third-party libraries
 
-The third-party libraries are omitted due to file size limitations. The necessary binaries for building with VS 2019 can be downloaded from [here](https://unidebhu-my.sharepoint.com/:u:/g/personal/csoba_istvan_inf_unideb_hu/Ecw5NQRdltNFk61E1H1JeUcBk9uBU2ag_JIXCnueOzNNrA?e=kkEVpQ). The library files should be placed in the [Libraries](Libraries) folder.
+All third-party libraries are omitted due to file size limitations. The necessary binaries for building with VS 2019 can be downloaded from [here](https://unidebhu-my.sharepoint.com/:u:/g/personal/csoba_istvan_inf_unideb_hu/Ecw5NQRdltNFk61E1H1JeUcBk9uBU2ag_JIXCnueOzNNrA?e=kkEVpQ). All third-party library files should be placed in the [Libraries](Libraries) folder.
 
 ### Third-party assets
 
-While some of the necessary assets are uploaded with the source, most of the third-party assets (meshes and textures) are omitted due to file size limitations. They can be downloaded from [here](https://unidebhu-my.sharepoint.com/:u:/g/personal/csoba_istvan_inf_unideb_hu/EfvMCe3XCvtAk8HdAQ77ewQBxnNT_fHhjlzVPuccnBIj5A?e=JhYbjB), and should be placed in the corresponding subfolders of the [Assets](Assets) folder.
+While some of the necessary assets are uploaded along with the source code, most of the third-party meshes and textures are omitted due to file size limitations. They can be downloaded from [here](https://unidebhu-my.sharepoint.com/:u:/g/personal/csoba_istvan_inf_unideb_hu/EfvMCe3XCvtAk8HdAQ77ewQBxnNT_fHhjlzVPuccnBIj5A?e=JhYbjB), and should be placed in the corresponding subfolders of the [Assets](Assets) folder.
 
 
 ## Running the framework
@@ -197,17 +197,24 @@ The main [MATLAB script folder](Assets/Scripts/Matlab/) also contains the [PSNR]
 
 The rest of the MATLAB code base implements the necessary optical procedures, facilitates the caching processes, and establishes the interface with the C++ side of the program.
 
-### Neural Networks
+### Neural networks (Python)
 
-The dataset generation and network training parts of the framework are implemented using the Python programming languge, for which the relevant code resides in the [Assets/Scripts/Python](Assets/Scripts/Python) folder. 
+The dataset generation and network training parts of the framework are implemented using the Python programming languge. The relevant code resides in the [Assets/Scripts/Python](Assets/Scripts/Python) folder. 
 
-The C++ side of the framework also contains a small wrapper around the TensorFlow C API, which can be found in [TensorFlowEx](Source/Core/LibraryExtensions/TensorFlowEx.h). The framework uses these functions to load the trained networks and perform inference on them at run time.
+The main script files are the following:
+- [eye_reconstruction.py](Assets/Scripts/Python/eye_reconstruction.py): Implements the data generation and network training for the discriminator and eye parameter estimator networks.
+- [eye_aberrations.py](Assets/Scripts/Python/eye_aberrations.py): Implements dataset generation and training for the off-axis aberration estimator network.
+- [eye_refocusing.py](Assets/Scripts/Python/eye_refocusing.py): Implements the data generation and training procedures for the refocused eye parameter estimator network.
 
-### Vision simulation - rendering (CPU)
+All of these scripts are built on a custom shared framework, which can be found in [framework](Assets/Scripts/Python/framework/) subfolder. Lastly, the framework heavily utilizes `.json` files for configuration, which are located i the [Data/config](Assets/Scripts/Python/Data/config) subfolder.
 
-The relevant C++ classes are located in the [Source/Scene/Components/Aberration](Source/Scene/Components/Aberration) folder. 
+### Vision simulation (CPU)
 
-- [WavefrontAberration](Source/Scene/Components/Aberration/WavefrontAberration.h): Supporting class; holds all the information necessary to describe an optical system. Also has the corresponding functionality to compute the PSF with arbitrary parameters. Lastly, the interface with the MATLAB eye reconstruction code base is also implemented here.
+To interface with the trained neural networks, the C++ side of the framework contains a small wrapper around the TensorFlow C API, which can be found in [TensorFlowEx](Source/Core/LibraryExtensions/TensorFlowEx.h). The framework uses these functions to load the trained networks and perform inference on them at run time.
+
+The C++ classes relating to vision simulation are located in the [Source/Scene/Components/Aberration](Source/Scene/Components/Aberration) folder. The main classes are the following:
+
+- [WavefrontAberration](Source/Scene/Components/Aberration/WavefrontAberration.h): Supporting class; holds all the information necessary to describe an optical system. Also has the corresponding functionality to compute the PSF with arbitrary parameters. Lastly, the interface with the MATLAB eye reconstruction code base and the exported neural networks is also implemented here.
 - [TiledSplatBlurComponent](Source/Scene/Components/Aberration/TiledSplatBlur.h): Implements the tiled PSF splatting-based proposed algorithm as described in our papers.
 - [GroundTruthAberrationComponent](Source/Scene/Components/Aberration/GroundTruthAberration.h): Responsible for creating reference images by evaluating the dense PSF for every pixel in the input texture. Also produces PSNR maps by sampling the output of the tiled splat algorithm.
 
