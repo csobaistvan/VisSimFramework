@@ -199,14 +199,14 @@ The rest of the MATLAB code base implements the necessary optical procedures, fa
 
 ### Neural networks (Python)
 
-The dataset generation and network training parts of the framework are implemented using the Python programming languge. The relevant code resides in the [Assets/Scripts/Python](Assets/Scripts/Python) folder. 
+The dataset generation and network training parts of the framework are implemented using the Python programming language. The relevant code resides in the [Assets/Scripts/Python](Assets/Scripts/Python) folder. 
 
 The main script files are the following:
 - [eye_reconstruction.py](Assets/Scripts/Python/eye_reconstruction.py): Implements the data generation and network training for the discriminator and eye parameter estimator networks.
 - [eye_aberrations.py](Assets/Scripts/Python/eye_aberrations.py): Implements dataset generation and training for the off-axis aberration estimator network.
 - [eye_refocusing.py](Assets/Scripts/Python/eye_refocusing.py): Implements the data generation and training procedures for the refocused eye parameter estimator network.
 
-All of these scripts are built on a custom shared framework, which can be found in [framework](Assets/Scripts/Python/framework/) subfolder. Lastly, the framework heavily utilizes `.json` files for configuration, which are located i the [Data/config](Assets/Scripts/Python/Data/config) subfolder.
+All of these scripts are built on a custom shared framework, which can be found in [framework](Assets/Scripts/Python/framework/) subfolder. Lastly, the framework heavily utilizes `.json` files for configuration, which are located in the [Data/Config](Assets/Scripts/Python/Data/Config) subfolder.
 
 ### Vision simulation (CPU)
 
