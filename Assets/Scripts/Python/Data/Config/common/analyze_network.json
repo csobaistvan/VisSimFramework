@@ -1,0 +1,30 @@
+{
+    "mode": "network",
+    "data": {
+        "datasets": [ "full", "train", "eval" ],
+        "normalization": "disable"
+    },
+    "metrics": {
+        "quantile": 0.9
+    },
+    "tabular": {
+        "metrics": [ "Mean", "Std", "MAE", "MAPE", "MSPE" ],
+        "style": "psql",
+        "precision": 6
+    },
+    "plots": {
+        "metrics": [ "MAE", "MAPE", "MSPE" ],
+        "bins": 128,
+        "show": false,
+        "save": false,
+        "save_dpi": 400.0
+    },
+    "log_outliers": {
+        "sum_file": false,
+        "mat_scripts": false,
+        "mean_abs_error": 0.0,
+        "mean_perc_error": 0.0,
+        "abs_error": 5.0,
+        "perc_error": 0.0
+    }
+}

@@ -1,0 +1,5 @@
+Build/**
+Binaries/**
+Assets/Generated/**
+
+*.asv

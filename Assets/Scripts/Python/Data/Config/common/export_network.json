@@ -1,0 +1,6 @@
+{
+    "target_folder": "${exported_networks}/",
+    "name_format": "${module_name}.${network_type}",
+    "export_formats": [ "saved_model" ],
+    "export_metadata": true
+}

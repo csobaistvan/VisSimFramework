@@ -1,0 +1,26 @@
+#pragma once
+
+////////////////////////////////////////////////////////////////////////////////
+//  Headers
+////////////////////////////////////////////////////////////////////////////////
+
+#include "PCH.h"
+
+////////////////////////////////////////////////////////////////////////////////
+/// VARIOUS CONSTANTS STRUCTURES
+////////////////////////////////////////////////////////////////////////////////
+namespace Constants
+{
+	// Absolute maximum worker threads
+	static constexpr size_t s_maxThreads = 16;
+
+	// Absolute maximum profiled threads
+	static constexpr size_t s_maxProfilerThreads = 1;
+
+	// Absolute maximum render layers
+	static constexpr size_t s_maxLayers = 8;
+
+	// Precision for vector and matrix outputs
+	static constexpr std::streamsize VEC_PRECISION = 4;
+	static constexpr std::streamsize MAT_PRECISION = 4;
+}

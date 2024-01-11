@@ -1,0 +1,13 @@
+{
+    "data_parameters": "eye_reconstruction.csv",
+    "num_samples": 2000000,
+    "max_degree": 6,
+    "num_rays": 500, 
+    "grid_shape": "hexcircle",
+    "random_seed": 132,
+    "num_threads": 16,
+    "overwrite_existing": false,
+    "checkpoint_save_interval": 60,
+    "progress_report_interval": 600,
+    "slack_progress_report_interval": 14400
+}

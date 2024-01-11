@@ -1,0 +1,162 @@
+{
+    // Pow2(0-19): 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288
+
+    "type": "RefocusEstimator",
+    "name": "",
+    "model_type": "ANN",
+    "eager_execution": false, 
+    "noneager_steps_per_exec": 1.0,
+    "dataset": {
+        "num_samples": 1.0,
+        "train_eval_ratio": 0.85,
+        "normalization": {
+            "features": "standardize",
+            "targets": "standardize"
+        },
+        "random_seeds": {
+            "split": 5482,
+            "shuffle": 669
+        }
+    },
+    "num_epochs": 30,
+    "num_checkpoints": 2,
+    "early_stopping": {
+        "baseline": {    
+            "enable": false,
+            "metric": "val_MAE",
+            "threshold": 0.5,
+            "epochs": 6
+        },
+        "min_delta": {
+            "enable": false,
+            "metric": "val_MAE",
+            "threshold": 1e-3,
+            "epochs": 4
+        },
+        "num_epochs": {
+            "enable": true,
+            "epochs": 1000
+        }
+    },
+    "network_topology": "residual",
+    "hidden_layers": {
+        "structure": {
+            "ffn": {
+                "input": [ "Input", "InputNormalization" ],
+                "output": [ "Output", "OutputNormalization" ],
+                "hidden": [ "DenseActivation", "LayerNormalization" ],
+            },
+            "residual": {
+                "input": [ "Input", "InputNormalization" ],
+                "output": [ "Output", "OutputNormalization" ],
+                "hidden": [ "Residual(Dense, 3)", "Residual(Identity, 3)", "Residual(Identity, 3)" ], 
+                "residual": [ "DenseActivation", "LayerNormalization" ],
+                "shortcut_dense": [ "Dense", "LayerNormalization" ],
+                "shortcut_identity": [ ],
+                "transition_block": [ "Activation", "LayerNormalization" ],
+            }
+        },
+        "num_layers": 2,
+        "num_units": 2000,
+        "activation_function": "mish",
+        "output_activation_function": "linear",
+        "normalize_weights": false,
+        "random_seeds": {
+            "kernel_initializer": 4975,
+            "bias_initializer": 2435
+        }
+    },
+    "batch": {
+        "size": 1024,
+    },
+    "loss": {
+        "function": "MAE",
+        "huber_delta": 1.35
+    },
+    "learning_rate": {
+        "rate": 0.005
+    },
+    "normalization": {
+        "epsilon": 1e-3,
+        "center": true,
+        "scale": true
+    },
+    "regularization": {
+        "weight_decay": 0.1,
+        "dropout_rate": 0.0
+    },
+    "gradient": {
+        "centralization": false,
+        "noise": false
+    },
+    "lookahead": {
+        "enable": true,
+        "sync_period": 5,
+        "slow_step_size": 0.8
+    },
+    "optimizer": "Radam",
+    "optimizer_params": {
+        "Radam": {
+            "beta_1": 0.95,
+            "beta_2": 0.999,
+            "beta_1_final": 0.1,
+            "decay_betas": false,
+            "epsilon": 1e-12,
+            "sma_threshold": 10.0,
+            "decayed_params": [ "learning_rate", "weight_decay" ]
+        }
+    },
+    "decay_schedule": {
+        "name": "exponential",
+        "warmup": 0,
+        "schedule_params": {
+            "exponential": {
+                "initial": 1.0,
+                "rate": 0.8,
+                "epochs": 1.0,
+                "smooth": true
+            },
+            "inverse_time": {
+                "initial": 1.0,
+                "rate": 2.0,
+                "epochs": 1.0,
+                "smooth": true
+            },
+            "polynomial": {
+                "initial": 1.0,
+                "power": 2.0,
+                "final": 0.0
+            },
+            "cosine": {
+                "initial": 1.0,
+                "alpha": 0.0
+            },
+            "piecewise": {
+                "boundaries": [ 3.0, 8.0 ],
+                "rates": [ 1.0, 0.5, 0.01 ]
+            },
+            "cosine_restarts": {
+                "initial": 1.0,
+                "alpha": 0.0,
+                "first_epochs": 1.0,
+                "t_mul": 1.0,
+                "m_mul": 0.5
+            },
+            "cyclical_triangular": {
+                "initial": 0.0,
+                "maximal": 1.0,
+                "length": 5.0
+            },    
+            "cyclical_triangular2": {
+                "initial": 0.0,
+                "maximal": 1.0,
+                "length": 5.0
+            },    
+            "cyclical_exponential": {
+                "initial": 0.0,
+                "maximal": 1.0,
+                "length": 5.0
+            }
+        }
+    }
+}

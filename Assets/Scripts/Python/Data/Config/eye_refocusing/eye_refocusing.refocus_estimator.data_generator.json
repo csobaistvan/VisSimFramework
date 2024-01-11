@@ -1,0 +1,14 @@
+{
+    "data_parameters": "eye_refocusing.csv",
+    "num_samples": 1000000,
+    "num_focus_steps": 40,
+    "num_passes": 5,
+    "num_rays": 100,
+    "num_subdivisions": 10,
+    "random_seed": 0,
+    "num_threads": 16,
+    "overwrite_existing": false,
+    "checkpoint_save_interval": 60,
+    "progress_report_interval": 600,
+    "slack_progress_report_interval": 14400
+}

@@ -1,0 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////
+struct SurfaceInfo
+{
+    vec3 position;
+    vec3 normal;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+struct MaterialInfo
+{
+    vec3 albedo;
+    float roughness;
+    float metallic;
+    float specular;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+struct LightInfo
+{
+    vec3 toLight;
+    float dist;
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float attenuation;
+    float shadow;
+};

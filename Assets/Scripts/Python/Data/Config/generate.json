@@ -1,0 +1,7 @@
+{
+    "run_mode": "generate",
+    "sleep_on_finish": false,
+    "slack_notifications": false,
+    "matlab": "config:matlab",
+    "data_generator": "config:$0.data_generator"
+}

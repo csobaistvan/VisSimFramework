@@ -1,0 +1,69 @@
+{
+    "mode": "data",
+    "data": {
+        "datasets": [
+            "full"
+        ],
+        "axes": [
+            "features",
+            "targets"
+        ],
+        "groups": {
+            "Z12": [
+                "AberrationZ2",
+                "AberrationZ3",
+                "AberrationZ4",
+                "AberrationZ5",
+                "AberrationZ6"
+            ],
+            "Z34": [
+                "AberrationZ7",
+                "AberrationZ8",
+                "AberrationZ9",
+                "AberrationZ10",
+                "AberrationZ11",
+                "AberrationZ12",
+                "AberrationZ13",
+                "AberrationZ14",
+                "AberrationZ15"
+            ],
+            "Z56": [
+                "AberrationZ16",
+                "AberrationZ17",
+                "AberrationZ18",
+                "AberrationZ19",
+                "AberrationZ20",
+                "AberrationZ21",
+                "AberrationZ22",
+                "AberrationZ23",
+                "AberrationZ24",
+                "AberrationZ25",
+                "AberrationZ26",
+                "AberrationZ27",
+                "AberrationZ28",
+            ]
+        }
+    },
+    "export": {
+        "plots": false,
+        "metrics": true,
+        "dataset": false
+    },
+    "plots": {
+        "metrics": [], // distribution, correlation, cross_correlation
+        "bins": 128,
+        "show": false,
+        "save_dpi": 400.0
+    },
+    "log_outliers": {
+        "sum_file": false,
+        "mat_scripts": false,
+        "conditions": {
+            "AberrationZ5": {
+                "sign": "abs",
+                "relation": "greater",
+                "threshold": 60.0
+            }
+        }
+    }
+}

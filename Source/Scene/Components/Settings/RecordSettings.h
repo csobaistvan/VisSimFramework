@@ -1,0 +1,142 @@
+#pragma once
+
+////////////////////////////////////////////////////////////////////////////////
+//  Headers
+////////////////////////////////////////////////////////////////////////////////
+
+#include "PCH.h"
+#include "Common.h"
+#include "EditorSettings.h"
+
+////////////////////////////////////////////////////////////////////////////////
+/// RECORD FUNCTIONS
+////////////////////////////////////////////////////////////////////////////////
+namespace RecordSettings
+{
+	////////////////////////////////////////////////////////////////////////////////
+	/** Component and display name. */
+	static constexpr const char* COMPONENT_NAME = "RecordSettings";
+	static constexpr const char* DISPLAY_NAME = "Record Settings";
+	static constexpr const char* CATEGORY = "Settings";
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Data for a single frame
+	struct Frame
+	{
+		unsigned m_frameId;
+		unsigned char* m_pixels;
+		size_t m_numPixels;
+		size_t m_dataSize;
+	};
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Data for the AVI writer
+	struct AviWriter
+	{
+		// Pointer to the output file
+		PAVIFILE m_file = nullptr;
+		PAVISTREAM m_stream = nullptr;
+		PAVISTREAM m_streamCompressed = nullptr;
+		AVICOMPRESSOPTIONS m_compressOptions;
+		unsigned m_lastFrameId = 0;
+	};
+
+	////////////////////////////////////////////////////////////////////////////////
+	/** Record settings component. */
+	struct RecordSettingsComponent
+	{
+		// Playback type
+		meta_enum(RecordType, int, RealTime, Synced);
+
+		// Video framerate
+		int m_videoFrameRate = 60;
+
+		// Recording type
+		RecordType m_recordType = Synced;
+
+		// Output file name
+		std::string m_outputFileName = "";
+
+		// Whether the gui should be included in the recording or not
+		bool m_includeGui = false;
+
+		// Whether we want to use a worker thread or work in sync
+		bool m_useWorkerThread = true;
+
+		// ---- Private members
+
+		// Whether we are recording or not
+		bool m_isRecording = false;
+
+		// Whether we are recording in async mode or not
+		bool m_isRecordingAsync = false;
+
+		// Name of video currently being recorded
+		std::string m_currentVideoName = "";
+
+		// Mutex for accessing the frame buffer
+		std::mutex m_frameBufferMutex;
+
+		// List of frames to write out
+		std::queue<Frame> m_frameBuffer;
+
+		// Pointer to the output file
+		AviWriter m_avi;
+	};
+
+	////////////////////////////////////////////////////////////////////////////////
+	void initObject(Scene::Scene& scene, Scene::Object& object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void releaseObject(Scene::Scene& scene, Scene::Object& object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void handleInput(Scene::Scene& scene, Scene::Object* simulationSettings, Scene::Object* input, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void updateObject(Scene::Scene& scene, Scene::Object* simulationSettings, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void generateGui(Scene::Scene& scene, Scene::Object* guiSettings, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void saveScreenshot(Scene::Scene& scene);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void saveGbuffer(Scene::Scene& scene);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void startRecording(Scene::Scene& scene);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void startRecording(Scene::Scene& scene, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void stopRecording(Scene::Scene& scene);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void stopRecording(Scene::Scene& scene, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void addFrame(Scene::Scene& scene, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void saveAviCodecConfig(Scene::Scene& scene, Scene::Object* object);
+	
+	////////////////////////////////////////////////////////////////////////////////
+	void restoreAviCodecConfig(Scene::Scene& scene, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void configureAviCodec(Scene::Scene& scene, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void openAviStream(Scene::Scene& scene, Scene::Object* object);
+
+	////////////////////////////////////////////////////////////////////////////////
+	void closeAviStream(Scene::Scene& scene, Scene::Object* object);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Component declaration
+DECLARE_COMPONENT(RECORD_SETTINGS, RecordSettingsComponent, RecordSettings::RecordSettingsComponent)
+DECLARE_OBJECT(RECORD_SETTINGS, COMPONENT_ID_RECORD_SETTINGS, COMPONENT_ID_EDITOR_SETTINGS)

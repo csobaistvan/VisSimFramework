@@ -1,0 +1,32 @@
+[
+    {
+        "module": "eye_reconstruction",
+        "network_type": "AberrationEstimator",
+        "model_type": "ANN",
+        "port": 6006
+    },
+    {
+        "module": "eye_reconstruction",
+        "network_type": "EyeEstimator",
+        "model_type": "ANN",
+        "port": 6007
+    },
+    {
+        "module": "eye_aberrations",
+        "network_type": "AberrationEstimator",
+        "model_type": "ANN",
+        "port": 6008
+    },
+    {
+        "module": "eye_refocusing",
+        "network_type": "RefocusEstimator",
+        "model_type": "ANN",
+        "port": 6009
+    },
+    {
+        "module": "eye_focal_lengths",
+        "network_type": "FocalLengthEstimator",
+        "model_type": "ANN",
+        "port": 6010
+    }
+]

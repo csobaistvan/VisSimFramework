@@ -1,0 +1,9 @@
+function coeffs = spectacle_to_zernike( D, S, C, A )
+    R = D / 2;
+    A = deg2rad( A );
+
+    coeffs = [...
+        ZernikeIdAnsi( 2, 0 ) ,-( R * R * ( S + C / 2 ) ) / ( 4 * sqrt(3) ); ...    
+        ZernikeIdAnsi( 2, -2 ), ( R * R * C * sin( 2 * A ) ) / ( 4 * sqrt(6) ); ...    
+        ZernikeIdAnsi( 2, 2 ), ( R * R * C * cos( 2 * A ) ) / ( 4 * sqrt(6) )];
+end

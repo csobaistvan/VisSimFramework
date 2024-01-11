@@ -1,0 +1,38 @@
+{
+    "random_seed": 47,
+    "objective": "val_MAE",
+    "algorithm": "Random",
+    "algorithm_params": {
+        "Random": {
+            "max_trials": 100
+        }
+    },
+    "hyperparameters": {
+        // fixed, tuning-specific parameters
+        "epochs": {
+            "variable": "num_epochs",
+            "fixed": 30
+        },
+        // tuned parameters
+        "seeds/dataset_split": {
+            "variable": "dataset.random_seeds.split",
+            "min": 0,
+            "max": 10000
+        },
+        //"seeds/dataset_shuffle": {
+        //    "variable": "dataset.random_seeds.shuffle",
+        //    "min": 0,
+        //    "max": 10000
+        //},
+        //"seeds/kernel_init": {
+        //    "variable": "hidden_layers.random_seeds.kernel_initializer",
+        //    "min": 0,
+        //    "max": 10000
+        //},
+        //"seeds/bias_init": {
+        //    "variable": "hidden_layers.random_seeds.bias_initializer",
+        //    "min": 0,
+        //    "max": 10000
+        //}
+    }
+}

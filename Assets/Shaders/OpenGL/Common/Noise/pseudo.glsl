@@ -1,0 +1,12 @@
+
+////////////////////////////////////////////////////////////////////////////////
+float pseudoNoise2D(vec2 co)
+{
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+float pseudoNoise2D(const vec2 co, const float mn, const float mx)
+{
+    return mn + pseudoNoise2D(co) * (mx - mn);
+}

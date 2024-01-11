@@ -1,0 +1,9 @@
+{
+    "run_mode": "export",
+    "sleep_on_finish": false,
+    "slack_notifications": false,
+    "matlab": "config:matlab",
+    "data_generator": "config:$0.data_generator",
+    "network": "config:$0.network",
+    "export": "config:export_network"
+}
