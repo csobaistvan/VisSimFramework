@@ -270,13 +270,16 @@ If you find the framework or our algorithms useful, we kindly ask you to cite th
 - [Fast rendering of central and peripheral human visual aberrations across the entire visual field with interactive personalization](https://doi.org/10.1007/s00371-023-03060-0)
 
 ```
-@article{csoba2023fast,
+@article{csoba2024fast,
   author  = {Csoba, István and Kunkli, Roland},
   title   = {{Fast rendering of central and peripheral human visual aberrations across the entire visual field with interactive personalization}},
-  year    = {2023},
+  year    = {2024},
+  month   = {05},
   journal = {The Visual Computer},
-  doi     = {https://doi.org/10.1007/s00371-023-03060-0},
-  note    = {(Epub ahead of print)}
+  volume  = {40},
+  number  = {5},
+  pages   = {3709--3731},
+  doi     = {https://doi.org/10.1007/s00371-023-03060-0}
 }
 ```
 
